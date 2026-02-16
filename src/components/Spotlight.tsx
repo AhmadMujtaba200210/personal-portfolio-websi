@@ -11,28 +11,25 @@ const spotlights = [
 
 export function Spotlight() {
     return (
-        <section className="space-y-8">
-            <h2 className="text-3xl font-bold tracking-tight">Spotlight</h2>
-            <div className="space-y-4">
-                {spotlights.map((item, i) => (
-                    <motion.div
-                        key={item.title}
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: i * 0.1 }}
-                        className="glass-card p-6 rounded-[2rem] flex items-center gap-6 group hover:bg-white transition-colors"
-                    >
-                        <div className="w-14 h-14 rounded-2xl bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-accent-blue/10 group-hover:text-accent-blue transition-colors">
-                            <item.icon size={28} />
-                        </div>
-                        <div>
-                            <h3 className="text-lg font-bold">{item.title}</h3>
-                            <p className="text-gray-500">{item.description}</p>
-                        </div>
-                    </motion.div>
-                ))}
-            </div>
-        </section>
+        <div className="space-y-4">
+            {spotlights.map((item, i) => (
+                <motion.div
+                    key={item.title}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1 }}
+                    className="glass-card p-6 rounded-[2rem] flex items-center gap-6 group hover:bg-white transition-colors"
+                >
+                    <div className="w-14 h-14 rounded-2xl bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-accent-blue/10 group-hover:text-accent-blue transition-colors">
+                        <item.icon size={28} />
+                    </div>
+                    <div>
+                        <h3 className="text-lg font-bold">{item.title}</h3>
+                        <p className="text-gray-500">{item.description}</p>
+                    </div>
+                </motion.div>
+            ))}
+        </div>
     );
 }
