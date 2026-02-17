@@ -5,7 +5,7 @@ import { Github, Linkedin, Mail, ArrowRight } from "lucide-react";
 import { ProjectCard } from "@/components/ProjectCard";
 import { ToolStack } from "@/components/ToolStack";
 import { Spotlight } from "@/components/Spotlight";
-import Typewriter from 'typewriter-effect';
+import { TypewriterWrapper } from "@/components/TypewriterWrapper";
 import { useEffect, useState } from "react";
 
 const projects = [
@@ -61,23 +61,13 @@ export default function Home() {
                         </div>
 
                         <div className="space-y-2">
-                            <div className="text-black dark:text-white">
-                                <h1 className="text-6xl md:text-8xl font-serif font-bold tracking-tight leading-[0.9]">
-                                    <Typewriter
-                                        options={{
-                                            strings: ['Ready to Hedge?', 'Analyzing Alpha...', 'All In?', 'Optimizing PnL...'],
-                                            autoStart: true,
-                                            loop: true,
-                                            cursor: '_',
-                                            delay: 75,
-                                        }}
-                                    />
-                                </h1>
-                            </div>
+                            <h1 className="text-6xl md:text-8xl font-serif font-bold tracking-tight leading-[0.9] text-gray-900 dark:text-white">
+                                <TypewriterWrapper strings={['Ready to Hedge?', 'Analyzing Alpha...', 'All In?', 'Optimizing PnL...']} />
+                            </h1>
                         </div>
 
-                        <p className="text-xl md:text-2xl text-gray-500 dark:text-gray-400 max-w-2xl leading-relaxed font-medium">
-                            I'm <span className="text-black dark:text-white font-bold border-b-2 border-accent-blue">Ahmad Mujtaba</span>.
+                        <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-2xl leading-relaxed font-medium">
+                            I'm <span className="text-gray-900 dark:text-white font-bold border-b-2 border-accent-cyan dark:border-accent-cyan">Ahmad Mujtaba</span>.
                             <br />
                             Quantitative Analyst & Developer focused on high-frequency trading systems, stochastic modeling, and algorithmic strategy.
                         </p>
@@ -90,15 +80,15 @@ export default function Home() {
                         transition={{ delay: 0.4, duration: 1 }}
                         className="flex items-center gap-4"
                     >
-                        <a href="mailto:mujtaba200210@gmail.com" className="h-12 px-6 rounded-full bg-black text-white font-medium hover:scale-105 transition-transform flex items-center gap-2">
+                        <a href="mailto:mujtaba200210@gmail.com" className="h-12 px-6 rounded-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-medium hover:scale-105 transition-transform flex items-center gap-2">
                             <Mail size={18} /> Email Me
                         </a>
-                        <div className="h-12 w-[1px] bg-gray-200 mx-2" />
-                        <a href="https://github.com/AhmadMujtaba200210" target="_blank" rel="noopener noreferrer" className="p-3 rounded-full hover:bg-gray-100 transition-colors">
-                            <Github size={22} className="text-gray-600" />
+                        <div className="h-12 w-[1px] bg-gray-200 dark:bg-gray-700 mx-2" />
+                        <a href="https://github.com/AhmadMujtaba200210" target="_blank" rel="noopener noreferrer" className="p-3 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                            <Github size={22} className="text-gray-600 dark:text-gray-300" />
                         </a>
-                        <a href="https://linkedin.com/in/ahmadmujtaba200210" target="_blank" rel="noopener noreferrer" className="p-3 rounded-full hover:bg-gray-100 transition-colors">
-                            <Linkedin size={22} className="text-gray-600" />
+                        <a href="https://linkedin.com/in/ahmadmujtaba200210" target="_blank" rel="noopener noreferrer" className="p-3 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                            <Linkedin size={22} className="text-gray-600 dark:text-gray-300" />
                         </a>
                     </motion.div>
                 </section>
@@ -120,8 +110,8 @@ export default function Home() {
                 {/* Spotlight Section */}
                 <section id="spotlight" className="grid grid-cols-1 md:grid-cols-2 gap-12">
                     <div className="space-y-6">
-                        <h2 className="text-4xl md:text-5xl font-serif font-bold tracking-tight dark:text-white">Spotlight</h2>
-                        <p className="text-gray-500 dark:text-gray-400 text-lg">Highlights from my journey, awards, and recognitions.</p>
+                        <h2 className="text-4xl md:text-5xl font-serif font-bold tracking-tight text-gray-900 dark:text-white">Spotlight</h2>
+                        <p className="text-gray-600 dark:text-gray-300 text-lg">Highlights from my journey, awards, and recognitions.</p>
                     </div>
                     <div className="space-y-4">
                         <Spotlight />
@@ -130,16 +120,16 @@ export default function Home() {
 
                 {/* Expertise Section */}
                 <section id="about" className="space-y-12">
-                    <h2 className="text-4xl md:text-5xl font-serif font-bold tracking-tight text-center dark:text-white">Technical Arsenal</h2>
+                    <h2 className="text-4xl md:text-5xl font-serif font-bold tracking-tight text-center text-gray-900 dark:text-white">Technical Arsenal</h2>
                     <ToolStack />
                 </section>
 
                 {/* Footer */}
                 <footer className="pt-20 pb-10 flex flex-col items-center gap-8 border-t border-gray-100 dark:border-gray-800">
-                    <h3 className="text-3xl md:text-4xl font-serif font-bold text-center dark:text-white">
+                    <h3 className="text-3xl md:text-4xl font-serif font-bold text-center text-gray-900 dark:text-white">
                         Let's build something <br /> <span className="text-accent-cyan dark:text-accent-cyan">extraordinary.</span>
                     </h3>
-                    <p className="text-gray-400 font-medium">© 2026 Ahmad Mujtaba. All rights reserved.</p>
+                    <p className="text-gray-500 dark:text-gray-400 font-medium">© 2026 Ahmad Mujtaba. All rights reserved.</p>
                 </footer>
             </div>
         </main>

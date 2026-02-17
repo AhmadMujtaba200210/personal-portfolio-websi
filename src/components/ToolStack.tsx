@@ -88,7 +88,7 @@ export function ToolStack() {
         <section className="space-y-12">
             {skillCategories.map((category, catIndex) => (
                 <div key={category.title} className="space-y-6">
-                    <h3 className="text-xl font-bold text-gray-800 border-l-4 border-accent-blue pl-4">{category.title}</h3>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white border-l-4 border-accent-cyan dark:border-accent-cyan pl-4">{category.title}</h3>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
                         {category.skills.map((skill, i) => (
                             <motion.div
@@ -98,13 +98,13 @@ export function ToolStack() {
                                 viewport={{ once: true }}
                                 transition={{ delay: i * 0.05 }}
                                 whileHover={{ scale: 1.05, y: -5 }}
-                                className="glass-card p-4 rounded-2xl flex flex-col items-center justify-center gap-3 group transition-all duration-300 hover:shadow-xl hover:border-gray-200"
+                                className="glass-card p-4 rounded-2xl flex flex-col items-center justify-center gap-3 group transition-all duration-300 hover:shadow-xl hover:border-gray-200 dark:hover:border-gray-600 dark:bg-gray-900/30"
                             >
                                 <skill.icon
                                     size={28}
                                     className={`scale-100 transition-all duration-300 ${skill.color}`}
                                 />
-                                <span className="text-xs font-bold text-gray-500 group-hover:text-gray-900 transition-colors text-center">
+                                <span className="text-xs font-bold text-gray-600 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white transition-colors text-center">
                                     {skill.name}
                                 </span>
                             </motion.div>
