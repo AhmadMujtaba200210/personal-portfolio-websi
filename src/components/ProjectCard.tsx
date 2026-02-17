@@ -2,46 +2,72 @@
 
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import Image from "next/image";
 
 interface ProjectCardProps {
     title: string;
     description: string;
     category: string;
-    icon?: string;
 }
 
+const getSuit = (category: string) => {
+    if (category.includes("Trading")) return "♠";
+    if (category.includes("Learning")) return "♣";
+    if (category.includes("Data")) return "♦";
+    return "♥";
+};
+
+const getRank = (title: string) => title.charAt(0);
+
 export function ProjectCard({ title, description, category }: ProjectCardProps) {
+    const suit = getSuit(category);
+    const rank = getRank(title);
+    const isRed = suit === "♥" || suit === "♦";
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            whileHover={{ y: -8 }}
-            className="group aspect-square md:aspect-video glass-card rounded-[2.5rem] p-10 flex flex-col justify-between cursor-pointer overflow-hidden relative"
+            whileHover={{ y: -8, scale: 1.02 }}
+            className="group relative w-full max-w-md bg-white dark:bg-gray-900/50 backdrop-blur-sm rounded-2xl border-2 border-gray-200 dark:border-gray-700 p-6 cursor-pointer overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
         >
-            {/* Background Accent Glow */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-accent-blue/5 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
-
-            <div className="flex justify-between items-start z-10">
-                <div className="space-y-1">
-                    <span className="text-xs font-bold uppercase tracking-wider text-accent-blue/60">{category}</span>
-                    <h3 className="text-2xl font-bold">{title}</h3>
-                </div>
-                <div className="w-12 h-12 glass-card rounded-2xl flex items-center justify-center group-hover:bg-accent-blue group-hover:text-white transition-colors duration-300">
-                    <ArrowUpRight size={24} className="group-hover:rotate-45 transition-transform" />
-                </div>
+            {/* Top Corner Suit */}
+            <div className={`absolute top-3 right-3 text-2xl ${isRed ? "text-red-500" : "text-gray-800 dark:text-gray-300"}`}>
+                {suit}
             </div>
 
-            <div className="z-10">
-                <p className="text-gray-500 max-w-sm line-clamp-2 transition-colors group-hover:text-gray-700">
+            {/* Content */}
+            <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                    <span className={`text-3xl font-serif font-bold ${isRed ? "text-red-500" : "text-gray-800 dark:text-gray-200"}`}>
+                        {rank}
+                    </span>
+                    <span className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                        {category}
+                    </span>
+                </div>
+
+                <h3 className="text-xl font-serif font-bold leading-tight text-gray-900 dark:text-white group-hover:text-accent-cyan dark:group-hover:text-accent-cyan transition-colors">
+                    {title}
+                </h3>
+
+                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed line-clamp-2">
                     {description}
                 </p>
             </div>
 
-            {/* Decorative Material Element */}
-            <div className="absolute bottom-[-20%] right-[-5%] w-64 h-64 bg-gray-50 rounded-full z-0 group-hover:scale-110 transition-transform duration-700 ease-out" />
+            {/* Subtle Watermark */}
+            <div className="absolute bottom-2 right-2 opacity-[0.03] dark:opacity-[0.05] pointer-events-none">
+                <span className={`text-8xl leading-none ${isRed ? "text-red-500" : "text-gray-800 dark:text-white"}`}>{suit}</span>
+            </div>
+
+            {/* Hover Indicator */}
+            <div className="absolute bottom-3 left-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="flex items-center gap-1 text-accent-cyan text-xs font-bold uppercase tracking-wide">
+                    View <ArrowUpRight size={12} />
+                </div>
+            </div>
         </motion.div>
     );
 }
