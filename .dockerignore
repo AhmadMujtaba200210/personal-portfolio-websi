@@ -1,0 +1,41 @@
+# Version control
+.git
+.gitignore
+
+# Dependencies (will be installed fresh in container)
+node_modules
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Build outputs
+.next
+out
+dist
+build
+
+# IDE / Editor
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Turbo
+.turbo
+
+# Docker
+docker-compose*.yml
+infra/docker
+
+# CI/CD
+.github
+
+# Testing
+coverage
+.nyc_output
