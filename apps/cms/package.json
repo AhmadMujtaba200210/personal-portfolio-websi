@@ -10,8 +10,8 @@
     },
     "dependencies": {
         "next": "15.2.9",
-        "react": "^18",
-        "react-dom": "^18",
+        "react": "^19",
+        "react-dom": "^19",
         "@portfolio/database": "*",
         "@portfolio/types": "*"
     }
