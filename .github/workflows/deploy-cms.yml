@@ -1,0 +1,30 @@
+name: Deploy CMS
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'apps/cms/**'
+      - 'packages/**'
+      - '.github/workflows/deploy-cms.yml'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        
+      - name: Login to Oracle Container Registry
+        run: echo "Login logic"
+
+      - name: Build and push CMS
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: infra/docker/CMS.Dockerfile
+          push: true
+          tags: cms:latest
