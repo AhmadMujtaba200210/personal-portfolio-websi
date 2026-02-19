@@ -25,7 +25,7 @@ const ALLOWED_MIME_TYPES = new Set([
 
 export async function uploadMedia(formData: FormData) {
     const session = await auth();
-    if (!session) throw new Error("Unauthorized");
+    if (!session?.user) throw new Error("Unauthorized");
 
     const file = formData.get("file") as File;
     if (!file) throw new Error("No file uploaded");
@@ -48,8 +48,9 @@ export async function uploadMedia(formData: FormData) {
     const filePath = path.join(UPLOAD_DIR, filename);
 
     // Ensure the resolved path is within UPLOAD_DIR to prevent path traversal
+    const uploadRoot = path.resolve(UPLOAD_DIR);
     const resolvedPath = path.resolve(filePath);
-    if (!resolvedPath.startsWith(path.resolve(UPLOAD_DIR))) {
+    if (!(resolvedPath === uploadRoot || resolvedPath.startsWith(`${uploadRoot}${path.sep}`))) {
         throw new Error("Invalid file path.");
     }
 
@@ -85,15 +86,16 @@ export async function getMediaList() {
 
 export async function deleteMedia(id: string) {
     const session = await auth();
-    if (!session) throw new Error("Unauthorized");
+    if (!session?.user) throw new Error("Unauthorized");
 
     const media = await prisma.media.findUnique({ where: { id } });
     if (!media) throw new Error("Media not found");
 
     // Delete from disk
     const filePath = path.join(UPLOAD_DIR, media.filename);
+    const uploadRoot = path.resolve(UPLOAD_DIR);
     const resolvedDeletePath = path.resolve(filePath);
-    if (!resolvedDeletePath.startsWith(path.resolve(UPLOAD_DIR))) {
+    if (!(resolvedDeletePath === uploadRoot || resolvedDeletePath.startsWith(`${uploadRoot}${path.sep}`))) {
         throw new Error("Invalid file path.");
     }
     try {
@@ -110,7 +112,7 @@ export async function deleteMedia(id: string) {
 
 export async function updateMediaMetadata(id: string, data: { alt?: string }) {
     const session = await auth();
-    if (!session) throw new Error("Unauthorized");
+    if (!session?.user) throw new Error("Unauthorized");
 
     const updated = await prisma.media.update({
         where: { id },

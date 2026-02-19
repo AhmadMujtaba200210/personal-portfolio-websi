@@ -14,7 +14,7 @@ export async function getSettings() {
 
 export async function saveSettings(settings: Record<string, string>) {
     const session = await auth();
-    if (!session) throw new Error("Unauthorized");
+    if (!session?.user) throw new Error("Unauthorized");
 
     const ops = Object.entries(settings).map(([key, value]) =>
         prisma.siteSettings.upsert({

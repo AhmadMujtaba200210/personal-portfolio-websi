@@ -12,7 +12,7 @@ export async function getSpotlightItems() {
 
 export async function saveSpotlightItem(formData: FormData) {
     const session = await auth();
-    if (!session) throw new Error("Unauthorized");
+    if (!session?.user) throw new Error("Unauthorized");
 
     const id = formData.get("id") as string;
     const title = formData.get("title") as string;
@@ -42,7 +42,7 @@ export async function saveSpotlightItem(formData: FormData) {
 
 export async function deleteSpotlightItem(id: string) {
     const session = await auth();
-    if (!session) throw new Error("Unauthorized");
+    if (!session?.user) throw new Error("Unauthorized");
 
     await prisma.spotlightItem.delete({ where: { id } });
     revalidatePath("/dashboard/spotlight");
@@ -50,7 +50,7 @@ export async function deleteSpotlightItem(id: string) {
 
 export async function reorderSpotlightItems(ids: string[]) {
     const session = await auth();
-    if (!session) throw new Error("Unauthorized");
+    if (!session?.user) throw new Error("Unauthorized");
 
     const updates = ids.map((id, index) =>
         prisma.spotlightItem.update({
