@@ -1,0 +1,149 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String     @id @default(cuid())
+  email     String     @unique
+  password  String     // hashed with bcrypt
+  name      String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  posts     BlogPost[]
+}
+
+model HeroSection {
+  id             String   @id @default(cuid())
+  typewriterText String[] // ["Ready to Hedge?", "Analyzing Alpha..."]
+  name           String
+  title          String
+  bio            String   @db.Text
+  githubUrl      String?
+  linkedinUrl    String?
+  email          String?
+  updatedAt      DateTime @updatedAt
+}
+
+model Project {
+  id           String   @id @default(cuid())
+  title        String
+  description  String   @db.Text
+  category     String
+  featuredImage String? // Main project image
+  galleryImages String[] // Additional images
+  demoUrl      String?
+  githubUrl    String?
+  techStack    String[] // ["Python", "Pandas", "NumPy"]
+  order        Int      @default(0)
+  published    Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model SpotlightItem {
+  id          String   @id @default(cuid())
+  title       String
+  description String   @db.Text
+  icon        String   // "Award", "Zap", "Star"
+  imageUrl    String?  // Optional custom image
+  order       Int      @default(0)
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model SkillCategory {
+  id        String   @id @default(cuid())
+  title     String
+  order     Int      @default(0)
+  skills    Skill[]
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Skill {
+  id         String        @id @default(cuid())
+  name       String
+  icon       String        // "Code2", "Database", etc.
+  color      String        // "text-yellow-500"
+  order      Int           @default(0)
+  categoryId String
+  category   SkillCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+}
+
+// Blog System
+model BlogPost {
+  id            String         @id @default(cuid())
+  title         String
+  slug          String         @unique
+  excerpt       String?        @db.Text
+  content       String         @db.Text // Rich text HTML content
+  featuredImage String?
+  published     Boolean        @default(false)
+  publishedAt   DateTime?
+  readingTime   Int?           // Minutes
+  views         Int            @default(0)
+  authorId      String
+  author        User           @relation(fields: [authorId], references: [id])
+  categories    BlogCategory[]
+  tags          BlogTag[]
+  seoTitle      String?
+  seoDescription String?       @db.Text
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@index([slug])
+  @@index([published, publishedAt])
+}
+
+model BlogCategory {
+  id          String     @id @default(cuid())
+  name        String     @unique
+  slug        String     @unique
+  description String?    @db.Text
+  posts       BlogPost[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model BlogTag {
+  id        String     @id @default(cuid())
+  name      String     @unique
+  slug      String     @unique
+  posts     BlogPost[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+// Media Library
+model Media {
+  id        String   @id @default(cuid())
+  filename  String
+  url       String
+  type      String   // "image", "document", "video"
+  size      Int?     // bytes
+  mimeType  String?
+  alt       String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([type])
+}
+
+model SiteSettings {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  value       String   @db.Text
+  description String?
+  updatedAt   DateTime @updatedAt
+}

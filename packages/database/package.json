@@ -9,9 +9,15 @@
         "push": "prisma db push"
     },
     "dependencies": {
-        "@prisma/client": "^7.4.0"
+        "@prisma/adapter-pg": "^7.4.0",
+        "@prisma/client": "^7.4.0",
+        "bcryptjs": "^3.0.3",
+        "dotenv": "^16.6.1",
+        "pg": "^8.18.0"
     },
     "devDependencies": {
+        "@types/bcryptjs": "^2.4.6",
+        "@types/pg": "^8.16.0",
         "prisma": "^7.4.0"
     }
 }
