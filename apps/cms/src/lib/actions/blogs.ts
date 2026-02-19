@@ -74,6 +74,10 @@ export async function saveBlogPost(formData: FormData) {
 
     revalidatePath("/dashboard/blogs");
     revalidatePath("/blogs");
+
+    // Trigger portfolio revalidation
+    const { revalidatePortfolio } = await import("./revalidate");
+    await revalidatePortfolio(["/blogs"]);
 }
 
 export async function deleteBlogPost(id: string) {
@@ -86,5 +90,9 @@ export async function deleteBlogPost(id: string) {
 
     revalidatePath("/dashboard/blogs");
     revalidatePath("/blogs");
+
+    // Trigger portfolio revalidation
+    const { revalidatePortfolio } = await import("./revalidate");
+    await revalidatePortfolio(["/blogs"]);
     return { success: true };
 }

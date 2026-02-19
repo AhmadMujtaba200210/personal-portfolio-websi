@@ -92,6 +92,9 @@ export function HomeClient({ hero, projects, skills, spotlights, settings }: Hom
                                 title={project.title}
                                 description={project.description}
                                 category={project.category}
+                                techStack={project.techStack}
+                                demoUrl={project.demoUrl}
+                                githubUrl={project.githubUrl}
                             />
                         ))}
                     </div>

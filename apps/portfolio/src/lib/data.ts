@@ -15,7 +15,7 @@ export async function getProjects() {
     try {
         return await prisma.project.findMany({
             where: { published: true },
-            orderBy: { createdAt: "desc" },
+            orderBy: [{ order: "asc" }, { createdAt: "desc" }],
         });
     } catch (error) {
         console.error("Error fetching projects:", error);
@@ -57,6 +57,11 @@ export async function getBlogs() {
         return await prisma.blogPost.findMany({
             where: { published: true },
             orderBy: { createdAt: "desc" },
+            include: {
+                author: { select: { name: true } },
+                categories: true,
+                tags: true,
+            },
         });
     } catch (error) {
         console.error("Error fetching blogs:", error);
@@ -68,6 +73,11 @@ export async function getBlogBySlug(slug: string) {
     try {
         return await prisma.blogPost.findUnique({
             where: { slug },
+            include: {
+                author: { select: { name: true } },
+                categories: true,
+                tags: true,
+            },
         });
     } catch (error) {
         console.error(`Error fetching blog with slug ${slug}:`, error);

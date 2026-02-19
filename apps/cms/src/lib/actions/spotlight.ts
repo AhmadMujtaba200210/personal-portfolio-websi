@@ -38,6 +38,10 @@ export async function saveSpotlightItem(formData: FormData) {
     }
 
     revalidatePath("/dashboard/spotlight");
+
+    // Trigger portfolio revalidation
+    const { revalidatePortfolio } = await import("./revalidate");
+    await revalidatePortfolio(["/"]);
 }
 
 export async function deleteSpotlightItem(id: string) {
@@ -46,6 +50,10 @@ export async function deleteSpotlightItem(id: string) {
 
     await prisma.spotlightItem.delete({ where: { id } });
     revalidatePath("/dashboard/spotlight");
+
+    // Trigger portfolio revalidation
+    const { revalidatePortfolio } = await import("./revalidate");
+    await revalidatePortfolio(["/"]);
 }
 
 export async function reorderSpotlightItems(ids: string[]) {
@@ -61,4 +69,8 @@ export async function reorderSpotlightItems(ids: string[]) {
 
     await Promise.all(updates);
     revalidatePath("/dashboard/spotlight");
+
+    // Trigger portfolio revalidation
+    const { revalidatePortfolio } = await import("./revalidate");
+    await revalidatePortfolio(["/"]);
 }

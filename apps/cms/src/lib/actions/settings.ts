@@ -27,4 +27,8 @@ export async function saveSettings(settings: Record<string, string>) {
     await Promise.all(ops);
     revalidatePath("/", "layout");
     revalidatePath("/dashboard/settings");
+
+    // Trigger portfolio revalidation
+    const { revalidatePortfolio } = await import("./revalidate");
+    await revalidatePortfolio(["/", "/about", "/blogs", "/contact"]);
 }
