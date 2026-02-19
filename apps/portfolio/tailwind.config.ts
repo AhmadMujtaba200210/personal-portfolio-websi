@@ -1,5 +1,13 @@
 import type { Config } from "tailwindcss";
 
+function loadOptionalPlugin(name: string) {
+    try {
+        return require(name);
+    } catch {
+        return null;
+    }
+}
+
 const config: Config = {
     darkMode: "class", // Enable class-based dark mode
     content: [
@@ -76,7 +84,7 @@ const config: Config = {
         },
     },
     plugins: [
-        require("@tailwindcss/typography"),
-    ],
+        loadOptionalPlugin("@tailwindcss/typography"),
+    ].filter(Boolean),
 };
 export default config;
