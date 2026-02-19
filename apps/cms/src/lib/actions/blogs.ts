@@ -29,22 +29,36 @@ export async function saveBlogPost(formData: FormData) {
     if (!session?.user) throw new Error("Unauthorized");
 
     const id = formData.get("id") as string;
-    const title = formData.get("title") as string;
-    const slug = formData.get("slug") as string;
-    const excerpt = formData.get("excerpt") as string;
-    const content = formData.get("content") as string;
+    const title = (formData.get("title") as string)?.trim();
+    const slug = (formData.get("slug") as string)?.trim();
+    const excerpt = (formData.get("excerpt") as string)?.trim();
+    const content = (formData.get("content") as string) || "";
     const published = formData.get("published") === "on";
-    const featuredImage = formData.get("featuredImage") as string;
+    const featuredImage = (formData.get("featuredImage") as string)?.trim();
+
+    if (!title || !slug) {
+        throw new Error("Title and slug are required.");
+    }
+
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
+        throw new Error("Slug must contain only lowercase letters, numbers, and hyphens.");
+    }
+
+    // Calculate reading time (~200 words per minute)
+    const plainText = content.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+    const wordCount = plainText.split(/\s+/).filter(w => w.length > 0).length;
+    const readingTime = Math.max(1, Math.ceil(wordCount / 200));
 
     const data = {
         title,
         slug,
-        excerpt,
+        excerpt: excerpt || null,
         content,
         published,
         featuredImage: featuredImage || null,
         authorId: session.user.id!,
         publishedAt: published ? new Date() : null,
+        readingTime,
     };
 
     if (id) {
