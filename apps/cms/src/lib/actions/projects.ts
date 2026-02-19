@@ -66,6 +66,10 @@ export async function saveProject(formData: FormData) {
     }
 
     revalidatePath("/dashboard/projects");
+
+    // Trigger portfolio revalidation
+    const { revalidatePortfolio } = await import("./revalidate");
+    await revalidatePortfolio(["/"]);
 }
 
 export async function deleteProject(id: string) {
@@ -76,5 +80,9 @@ export async function deleteProject(id: string) {
         where: { id },
     });
     revalidatePath("/dashboard/projects");
+
+    // Trigger portfolio revalidation
+    const { revalidatePortfolio } = await import("./revalidate");
+    await revalidatePortfolio(["/"]);
     return { success: true };
 }

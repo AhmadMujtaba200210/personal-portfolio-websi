@@ -65,4 +65,8 @@ export async function updateHeroSection(formData: FormData) {
     }
 
     revalidatePath("/dashboard/hero");
+
+    // Trigger portfolio revalidation
+    const { revalidatePortfolio } = await import("./revalidate");
+    await revalidatePortfolio(["/", "/about", "/contact"]);
 }

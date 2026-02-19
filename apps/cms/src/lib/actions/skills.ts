@@ -32,6 +32,10 @@ export async function saveSkillCategory(formData: FormData) {
     }
 
     revalidatePath("/dashboard/skills");
+
+    // Trigger portfolio revalidation
+    const { revalidatePortfolio } = await import("./revalidate");
+    await revalidatePortfolio(["/", "/toolstack"]);
 }
 
 export async function deleteSkillCategory(id: string) {
@@ -40,6 +44,10 @@ export async function deleteSkillCategory(id: string) {
 
     await prisma.skillCategory.delete({ where: { id } });
     revalidatePath("/dashboard/skills");
+
+    // Trigger portfolio revalidation
+    const { revalidatePortfolio } = await import("./revalidate");
+    await revalidatePortfolio(["/", "/toolstack"]);
 }
 
 export async function saveSkill(formData: FormData) {
@@ -68,6 +76,10 @@ export async function saveSkill(formData: FormData) {
     }
 
     revalidatePath("/dashboard/skills");
+
+    // Trigger portfolio revalidation
+    const { revalidatePortfolio } = await import("./revalidate");
+    await revalidatePortfolio(["/", "/toolstack"]);
 }
 
 export async function deleteSkill(id: string) {
@@ -76,6 +88,10 @@ export async function deleteSkill(id: string) {
 
     await prisma.skill.delete({ where: { id } });
     revalidatePath("/dashboard/skills");
+
+    // Trigger portfolio revalidation
+    const { revalidatePortfolio } = await import("./revalidate");
+    await revalidatePortfolio(["/", "/toolstack"]);
 }
 
 export async function reorderSkills(skillIds: string[]) {
@@ -91,4 +107,8 @@ export async function reorderSkills(skillIds: string[]) {
 
     await Promise.all(updates);
     revalidatePath("/dashboard/skills");
+
+    // Trigger portfolio revalidation
+    const { revalidatePortfolio } = await import("./revalidate");
+    await revalidatePortfolio(["/", "/toolstack"]);
 }

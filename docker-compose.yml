@@ -24,6 +24,7 @@ services:
     environment:
       - NODE_ENV=production
       - API_URL=http://cms:3001/api
+      - REVALIDATION_SECRET=${REVALIDATION_SECRET}
     restart: always
     healthcheck:
       test: ["CMD-SHELL", "node -e \"fetch('http://localhost:3000').then(r => { if (!r.ok) process.exit(1) }).catch(() => process.exit(1))\""]
@@ -41,6 +42,8 @@ services:
     environment:
       - NODE_ENV=production
       - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      - PORTFOLIO_URL=http://portfolio:3000
+      - REVALIDATION_SECRET=${REVALIDATION_SECRET}
     restart: always
     depends_on:
       db:

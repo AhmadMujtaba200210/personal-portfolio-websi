@@ -30,12 +30,30 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
     return (
         <article className="min-h-screen pt-32 pb-20 px-6 md:px-12 max-w-3xl mx-auto space-y-8">
             <header className="space-y-4">
-                <p className="text-accent-blue font-bold tracking-widest uppercase text-sm">
-                    {new Date(blog.createdAt).toLocaleDateString(undefined, {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                    })}
+                {/* Categories & Tags from CMS */}
+                <div className="flex flex-wrap gap-2">
+                    {blog.categories?.map((cat: any) => (
+                        <span key={cat.id} className="px-3 py-1 rounded-full bg-accent-blue/10 text-xs font-bold uppercase tracking-wider text-accent-blue">
+                            {cat.name}
+                        </span>
+                    ))}
+                    {blog.tags?.map((tag: any) => (
+                        <span key={tag.id} className="px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                            {tag.name}
+                        </span>
+                    ))}
+                </div>
+
+                <p className="text-accent-blue font-bold tracking-widest uppercase text-sm flex items-center gap-3">
+                    <span>
+                        {new Date(blog.createdAt).toLocaleDateString(undefined, {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        })}
+                    </span>
+                    {blog.readingTime && <span>· {blog.readingTime} min read</span>}
+                    {blog.author?.name && <span>· {blog.author.name}</span>}
                 </p>
                 <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-gray-900 dark:text-white leading-[1.1]">
                     {blog.title}
@@ -46,6 +64,13 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
                     </p>
                 )}
             </header>
+
+            {/* Featured Image from CMS */}
+            {blog.featuredImage && (
+                <div className="w-full rounded-3xl overflow-hidden">
+                    <img src={blog.featuredImage} alt={blog.title} className="w-full h-auto object-cover" />
+                </div>
+            )}
 
             <div className="h-[1px] w-full bg-gray-100 dark:bg-gray-800 my-12" />
 

@@ -1,12 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Github, ExternalLink } from "lucide-react";
 
 interface ProjectCardProps {
     title: string;
     description: string;
     category: string;
+    techStack?: string[];
+    demoUrl?: string | null;
+    githubUrl?: string | null;
 }
 
 const getSuit = (category: string) => {
@@ -18,7 +21,7 @@ const getSuit = (category: string) => {
 
 const getRank = (title: string) => title.charAt(0);
 
-export function ProjectCard({ title, description, category }: ProjectCardProps) {
+export function ProjectCard({ title, description, category, techStack, demoUrl, githubUrl }: ProjectCardProps) {
     const suit = getSuit(category);
     const rank = getRank(title);
     const isRed = suit === "♥" || suit === "♦";
@@ -55,7 +58,39 @@ export function ProjectCard({ title, description, category }: ProjectCardProps) 
                 <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed line-clamp-2">
                     {description}
                 </p>
+
+                {/* Tech Stack from CMS */}
+                {techStack && techStack.length > 0 && (
+                    <div className="flex flex-wrap gap-1 pt-1">
+                        {techStack.slice(0, 4).map((tech) => (
+                            <span key={tech} className="px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                {tech}
+                            </span>
+                        ))}
+                        {techStack.length > 4 && (
+                            <span className="px-2 py-0.5 text-[10px] font-bold text-gray-400">
+                                +{techStack.length - 4}
+                            </span>
+                        )}
+                    </div>
+                )}
             </div>
+
+            {/* Project Links from CMS */}
+            {(demoUrl || githubUrl) && (
+                <div className="flex items-center gap-2 pt-3 mt-3 border-t border-gray-100 dark:border-gray-800">
+                    {githubUrl && (
+                        <a href={githubUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" title="View Source">
+                            <Github size={14} className="text-gray-500 dark:text-gray-400" />
+                        </a>
+                    )}
+                    {demoUrl && (
+                        <a href={demoUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" title="Live Demo">
+                            <ExternalLink size={14} className="text-gray-500 dark:text-gray-400" />
+                        </a>
+                    )}
+                </div>
+            )}
 
             {/* Subtle Watermark */}
             <div className="absolute bottom-2 right-2 opacity-[0.03] dark:opacity-[0.05] pointer-events-none">

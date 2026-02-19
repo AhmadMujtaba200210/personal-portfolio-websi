@@ -49,9 +49,16 @@ export function BlogsClient({ blogs }: BlogsClientProps) {
                             </div>
 
                             <div className="space-y-4">
-                                <span className="px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-700 text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                                    {new Date(blog.createdAt).toLocaleDateString()}
-                                </span>
+                                <div className="flex flex-wrap gap-2">
+                                    <span className="px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-700 text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                                        {new Date(blog.createdAt).toLocaleDateString()}
+                                    </span>
+                                    {blog.categories?.map((cat: any) => (
+                                        <span key={cat.id} className="px-3 py-1 rounded-full bg-accent-blue/10 text-xs font-bold uppercase tracking-wider text-accent-blue">
+                                            {cat.name}
+                                        </span>
+                                    ))}
+                                </div>
                                 <h3 className="text-2xl font-bold leading-tight group-hover:text-accent-blue transition-colors text-gray-900 dark:text-white">
                                     {blog.title}
                                 </h3>
@@ -60,8 +67,12 @@ export function BlogsClient({ blogs }: BlogsClientProps) {
                                 </p>
                             </div>
 
-                            <div className="pt-6 border-t border-gray-100 dark:border-gray-700">
+                            <div className="pt-6 border-t border-gray-100 dark:border-gray-700 flex items-center justify-between">
                                 <p className="text-sm font-medium text-gray-400">Read Article</p>
+                                <div className="flex items-center gap-2 text-xs text-gray-400">
+                                    {blog.readingTime && <span>{blog.readingTime} min read</span>}
+                                    {blog.author?.name && <span>· {blog.author.name}</span>}
+                                </div>
                             </div>
                         </motion.div>
                     </Link>
