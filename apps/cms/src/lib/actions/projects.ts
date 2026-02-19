@@ -66,7 +66,6 @@ export async function saveProject(formData: FormData) {
     }
 
     revalidatePath("/dashboard/projects");
-    return { success: true };
 }
 
 export async function deleteProject(id: string) {

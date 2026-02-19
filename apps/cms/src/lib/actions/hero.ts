@@ -65,5 +65,4 @@ export async function updateHeroSection(formData: FormData) {
     }
 
     revalidatePath("/dashboard/hero");
-    return { success: true };
 }

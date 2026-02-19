@@ -74,7 +74,6 @@ export async function saveBlogPost(formData: FormData) {
 
     revalidatePath("/dashboard/blogs");
     revalidatePath("/blogs");
-    return { success: true };
 }
 
 export async function deleteBlogPost(id: string) {
