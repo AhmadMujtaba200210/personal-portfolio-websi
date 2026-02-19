@@ -8,6 +8,9 @@ interface ContactClientProps {
     settings: Record<string, string>;
 }
 
+const inputStyles = "w-full px-6 py-4 rounded-xl bg-gray-50 dark:bg-gray-800/60 border-2 border-transparent focus:border-accent-blue focus:bg-white dark:focus:bg-gray-800 outline-none transition-all font-medium text-lg text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500";
+const labelStyles = "text-sm font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 ml-2";
+
 export function ContactClient({ hero, settings }: ContactClientProps) {
     const email = hero?.email || settings["CONTACT_EMAIL"] || "hello@example.com";
     const github = hero?.githubUrl || settings["SOCIAL_GITHUB"] || "";
@@ -53,32 +56,32 @@ export function ContactClient({ hero, settings }: ContactClientProps) {
                 className="space-y-6 glass-card p-8 md:p-12 rounded-[2rem]"
             >
                 <div className="space-y-2">
-                    <label htmlFor="name" className="text-sm font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 ml-2">Name</label>
+                    <label htmlFor="name" className={labelStyles}>Name</label>
                     <input
                         type="text"
                         id="name"
                         placeholder="What's your name?"
-                        className="w-full px-6 py-4 rounded-xl bg-gray-50 dark:bg-gray-800/60 border-2 border-transparent focus:border-accent-blue focus:bg-white dark:focus:bg-gray-800 outline-none transition-all font-medium text-lg text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500"
+                        className={inputStyles}
                     />
                 </div>
 
                 <div className="space-y-2">
-                    <label htmlFor="email" className="text-sm font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 ml-2">Email</label>
+                    <label htmlFor="email" className={labelStyles}>Email</label>
                     <input
                         type="email"
                         id="email"
                         placeholder="Where can I reach you?"
-                        className="w-full px-6 py-4 rounded-xl bg-gray-50 dark:bg-gray-800/60 border-2 border-transparent focus:border-accent-blue focus:bg-white dark:focus:bg-gray-800 outline-none transition-all font-medium text-lg text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500"
+                        className={inputStyles}
                     />
                 </div>
 
                 <div className="space-y-2">
-                    <label htmlFor="message" className="text-sm font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 ml-2">Message</label>
+                    <label htmlFor="message" className={labelStyles}>Message</label>
                     <textarea
                         id="message"
                         rows={4}
                         placeholder="Tell me about your project..."
-                        className="w-full px-6 py-4 rounded-xl bg-gray-50 dark:bg-gray-800/60 border-2 border-transparent focus:border-accent-blue focus:bg-white dark:focus:bg-gray-800 outline-none transition-all font-medium text-lg text-gray-900 dark:text-white resize-none placeholder:text-gray-400 dark:placeholder:text-gray-500"
+                        className={`${inputStyles} resize-none`}
                     />
                 </div>
 

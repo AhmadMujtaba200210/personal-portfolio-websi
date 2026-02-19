@@ -36,8 +36,8 @@ export function SideNav() {
     const pathname = usePathname();
     const [isHovered, setIsHovered] = useState(false);
     const [isMobileOpen, setIsMobileOpen] = useState(false);
-    const { theme } = useTheme();
-    const isDark = theme === "dark";
+    const { resolvedTheme } = useTheme();
+    const isDark = resolvedTheme === "dark";
     // Navigation should be expanded ONLY if user is hovering over it
     const isExpanded = isHovered;
 
