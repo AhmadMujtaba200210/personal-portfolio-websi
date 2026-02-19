@@ -3,6 +3,7 @@
 import prisma from "@portfolio/database";
 import { revalidatePath } from "next/cache";
 import { auth } from "@/auth";
+import { importDocumentFromFile } from "@/lib/document-import";
 
 export async function getBlogPosts() {
     return await prisma.blogPost.findMany({
@@ -95,4 +96,54 @@ export async function deleteBlogPost(id: string) {
     const { revalidatePortfolio } = await import("./revalidate");
     await revalidatePortfolio(["/blogs"]);
     return { success: true };
+}
+
+function normalizeSlug(value: string) {
+    return value
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "") || "imported-document";
+}
+
+async function ensureUniqueSlug(baseSlug: string, excludeId?: string) {
+    let slug = normalizeSlug(baseSlug);
+    let suffix = 2;
+
+    while (true) {
+        const existing = await prisma.blogPost.findUnique({
+            where: { slug },
+            select: { id: true },
+        });
+
+        if (!existing || (excludeId && existing.id === excludeId)) {
+            return slug;
+        }
+
+        slug = `${normalizeSlug(baseSlug)}-${suffix++}`;
+    }
+}
+
+export async function importBlogDocument(formData: FormData) {
+    const session = await auth();
+    if (!session?.user) throw new Error("Unauthorized");
+
+    const file = formData.get("file");
+    if (!(file instanceof File)) {
+        throw new Error("Please upload a valid file.");
+    }
+
+    const currentId = (formData.get("id") as string | null) || undefined;
+    const imported = await importDocumentFromFile(file);
+    const uniqueSlug = await ensureUniqueSlug(imported.slug, currentId);
+
+    return {
+        title: imported.title,
+        slug: uniqueSlug,
+        excerpt: imported.excerpt,
+        content: imported.content,
+        wordCount: imported.wordCount,
+        sourceType: imported.sourceType,
+        fileName: file.name,
+    };
 }

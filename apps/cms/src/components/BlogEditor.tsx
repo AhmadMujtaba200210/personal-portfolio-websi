@@ -11,11 +11,11 @@ import { MathExtension } from "tiptap-math-extension";
 import {
     Bold, Italic, List, ListOrdered, Quote, Code, Heading1, Heading2,
     Link as LinkIcon, Image as ImageIcon, Sigma, Save, Eye, ArrowLeft,
-    Type, Globe, Trash2
+    Type, Globe, Trash2, FileUp
 } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { saveBlogPost } from "@/lib/actions/blogs";
+import { importBlogDocument, saveBlogPost } from "@/lib/actions/blogs";
 import LinkNext from "next/link";
 
 const lowlight = createLowlight(common);
@@ -27,9 +27,13 @@ interface BlogEditorProps {
 export default function BlogEditor({ post }: BlogEditorProps) {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
+    const [importing, setImporting] = useState(false);
     const [preview, setPreview] = useState(false);
     const [title, setTitle] = useState(post?.title || "");
     const [slug, setSlug] = useState(post?.slug || "");
+    const [excerpt, setExcerpt] = useState(post?.excerpt || "");
+    const [importMeta, setImportMeta] = useState<string>("");
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     const editor = useEditor({
         extensions: [
@@ -66,6 +70,38 @@ export default function BlogEditor({ post }: BlogEditorProps) {
             setSlug(title.toLowerCase().replace(/ /g, "-").replace(/[^\w-]+/g, ""));
         }
     }, [title, post]);
+
+    async function handleImportFile(fileList: FileList | null) {
+        const file = fileList?.[0];
+        if (!file || !editor) return;
+
+        setImporting(true);
+        setImportMeta("");
+        try {
+            const formData = new FormData();
+            formData.append("file", file);
+            if (post?.id) {
+                formData.append("id", post.id);
+            }
+            const imported = await importBlogDocument(formData);
+            setTitle(imported.title);
+            setSlug(imported.slug);
+            setExcerpt(imported.excerpt);
+            editor.commands.setContent(imported.content);
+            setPreview(false);
+            setImportMeta(
+                `Imported ${imported.fileName} (${imported.sourceType.toUpperCase()}, ${imported.wordCount} words)`
+            );
+        } catch (error) {
+            console.error(error);
+            alert(error instanceof Error ? error.message : "Document import failed.");
+        } finally {
+            setImporting(false);
+            if (fileInputRef.current) {
+                fileInputRef.current.value = "";
+            }
+        }
+    }
 
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
@@ -110,6 +146,22 @@ export default function BlogEditor({ post }: BlogEditorProps) {
                     </div>
                 </div>
                 <div className="flex items-center gap-3">
+                    <input
+                        ref={fileInputRef}
+                        type="file"
+                        className="hidden"
+                        accept=".pdf,.docx,.txt,.md,.markdown,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,text/markdown"
+                        onChange={(e) => handleImportFile(e.target.files)}
+                    />
+                    <button
+                        type="button"
+                        onClick={() => fileInputRef.current?.click()}
+                        disabled={importing}
+                        className="flex items-center gap-2 px-4 py-2 rounded-xl font-bold transition-all border bg-white/5 text-gray-300 border-white/10 hover:bg-white/10 disabled:opacity-50"
+                    >
+                        <FileUp size={16} />
+                        {importing ? "Importing..." : "Import Document"}
+                    </button>
                     <button
                         type="button"
                         onClick={() => setPreview(!preview)}
@@ -132,6 +184,11 @@ export default function BlogEditor({ post }: BlogEditorProps) {
             <div className="max-w-4xl mx-auto space-y-8">
                 {/* Meta Fields */}
                 <div className="glass-card p-8 rounded-3xl border border-white/5 bg-white/2 space-y-6">
+                    {importMeta && (
+                        <div className="text-xs text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-xl px-3 py-2">
+                            {importMeta}
+                        </div>
+                    )}
                     <div className="space-y-4">
                         <input
                             name="title"
@@ -166,7 +223,8 @@ export default function BlogEditor({ post }: BlogEditorProps) {
                     </div>
                     <textarea
                         name="excerpt"
-                        defaultValue={post?.excerpt || ""}
+                        value={excerpt}
+                        onChange={(e) => setExcerpt(e.target.value)}
                         className="w-full bg-transparent text-gray-500 border-none focus:outline-none resize-none text-lg italic"
                         placeholder="A brief summary of this research piece..."
                         rows={2}
