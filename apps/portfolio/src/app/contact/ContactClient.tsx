@@ -53,36 +53,36 @@ export function ContactClient({ hero, settings }: ContactClientProps) {
                 className="space-y-6 glass-card p-8 md:p-12 rounded-[2rem]"
             >
                 <div className="space-y-2">
-                    <label htmlFor="name" className="text-sm font-bold uppercase tracking-wider text-gray-500 ml-2">Name</label>
+                    <label htmlFor="name" className="text-sm font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 ml-2">Name</label>
                     <input
                         type="text"
                         id="name"
                         placeholder="What's your name?"
-                        className="w-full px-6 py-4 rounded-xl bg-gray-50 border-2 border-transparent focus:border-accent-blue focus:bg-white outline-none transition-all font-medium text-lg"
+                        className="w-full px-6 py-4 rounded-xl bg-gray-50 dark:bg-gray-800/60 border-2 border-transparent focus:border-accent-blue focus:bg-white dark:focus:bg-gray-800 outline-none transition-all font-medium text-lg text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500"
                     />
                 </div>
 
                 <div className="space-y-2">
-                    <label htmlFor="email" className="text-sm font-bold uppercase tracking-wider text-gray-500 ml-2">Email</label>
+                    <label htmlFor="email" className="text-sm font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 ml-2">Email</label>
                     <input
                         type="email"
                         id="email"
                         placeholder="Where can I reach you?"
-                        className="w-full px-6 py-4 rounded-xl bg-gray-50 border-2 border-transparent focus:border-accent-blue focus:bg-white outline-none transition-all font-medium text-lg"
+                        className="w-full px-6 py-4 rounded-xl bg-gray-50 dark:bg-gray-800/60 border-2 border-transparent focus:border-accent-blue focus:bg-white dark:focus:bg-gray-800 outline-none transition-all font-medium text-lg text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500"
                     />
                 </div>
 
                 <div className="space-y-2">
-                    <label htmlFor="message" className="text-sm font-bold uppercase tracking-wider text-gray-500 ml-2">Message</label>
+                    <label htmlFor="message" className="text-sm font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 ml-2">Message</label>
                     <textarea
                         id="message"
                         rows={4}
                         placeholder="Tell me about your project..."
-                        className="w-full px-6 py-4 rounded-xl bg-gray-50 border-2 border-transparent focus:border-accent-blue focus:bg-white outline-none transition-all font-medium text-lg resize-none"
+                        className="w-full px-6 py-4 rounded-xl bg-gray-50 dark:bg-gray-800/60 border-2 border-transparent focus:border-accent-blue focus:bg-white dark:focus:bg-gray-800 outline-none transition-all font-medium text-lg text-gray-900 dark:text-white resize-none placeholder:text-gray-400 dark:placeholder:text-gray-500"
                     />
                 </div>
 
-                <button className="w-full py-4 rounded-xl bg-black text-white font-bold text-lg hover:bg-accent-blue hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3 shadow-xl">
+                <button className="w-full py-4 rounded-xl bg-gray-900 dark:bg-white/10 text-white font-bold text-lg hover:bg-accent-blue hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3 shadow-xl">
                     Send Message <Send size={20} />
                 </button>
             </motion.form>

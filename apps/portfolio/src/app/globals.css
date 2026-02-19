@@ -87,6 +87,14 @@
     background: #d4d4d4;
 }
 
+.dark ::-webkit-scrollbar-thumb {
+    background: #374151;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+    background: #4b5563;
+}
+
 /* Global Vignette Glow */
 body::after {
     content: '';
@@ -103,6 +111,6 @@ body::after {
 
 @layer components {
     .glass-card {
-        @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-xl;
+        @apply bg-white/70 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 shadow-xl;
     }
 }

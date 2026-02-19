@@ -35,10 +35,10 @@ export default function Songs() {
                 transition={{ type: "spring", stiffness: 100, damping: 20 }}
                 className="space-y-4"
             >
-                <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
+                <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-gray-900 dark:text-white">
                     On <span className="text-accent-blue">Repeat</span>.
                 </h1>
-                <p className="text-xl text-gray-500 max-w-2xl">
+                <p className="text-xl text-gray-500 dark:text-gray-400 max-w-2xl">
                     What I'm listening to right now.
                 </p>
             </motion.div>
@@ -73,9 +73,9 @@ export default function Songs() {
                         </div>
 
                         <div className="text-center space-y-2">
-                            <h3 className="text-2xl font-bold text-gray-900">{list.title}</h3>
-                            <p className="text-gray-500 font-medium">{list.description}</p>
-                            <button className="mt-4 px-6 py-2 rounded-full border border-gray-200 text-sm font-bold hover:bg-black hover:text-white transition-colors flex items-center justify-center gap-2 mx-auto">
+                            <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{list.title}</h3>
+                            <p className="text-gray-500 dark:text-gray-400 font-medium">{list.description}</p>
+                            <button className="mt-4 px-6 py-2 rounded-full border border-gray-200 dark:border-gray-700 text-sm font-bold text-gray-700 dark:text-gray-200 hover:bg-gray-900 dark:hover:bg-white hover:text-white dark:hover:text-gray-900 transition-colors flex items-center justify-center gap-2 mx-auto">
                                 <Music size={16} /> Listen on Spotify
                             </button>
                         </div>

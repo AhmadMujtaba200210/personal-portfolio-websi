@@ -10,7 +10,7 @@ export default function Playground() {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ type: "spring", stiffness: 100, damping: 20 }}
-                className="w-24 h-24 rounded-3xl bg-gray-50 flex items-center justify-center text-accent-blue shadow-lg border border-white"
+                className="w-24 h-24 rounded-3xl bg-gray-50 dark:bg-gray-800/60 flex items-center justify-center text-accent-blue shadow-lg border border-white dark:border-gray-700"
             >
                 <Gamepad2 size={48} />
             </motion.div>
@@ -21,10 +21,10 @@ export default function Playground() {
                 transition={{ delay: 0.2 }}
                 className="space-y-4"
             >
-                <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-                    Playground <span className="text-gray-300">Beta</span>.
+                <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    Playground <span className="text-gray-300 dark:text-gray-600">Beta</span>.
                 </h1>
-                <p className="text-xl text-gray-500 max-w-lg mx-auto">
+                <p className="text-xl text-gray-500 dark:text-gray-400 max-w-lg mx-auto">
                     Experimental UI components and physics-based interactions are being built here. Check back soon!
                 </p>
             </motion.div>
