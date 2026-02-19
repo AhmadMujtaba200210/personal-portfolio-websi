@@ -29,12 +29,12 @@ export async function updateHeroSection(formData: FormData) {
         throw new Error("Invalid email format.");
     }
 
-    if (githubUrl && !/^https?:\/\/.+/.test(githubUrl)) {
-        throw new Error("GitHub URL must start with http:// or https://.");
+    if (githubUrl) {
+        try { new URL(githubUrl); } catch { throw new Error("GitHub URL is not a valid URL."); }
     }
 
-    if (linkedinUrl && !/^https?:\/\/.+/.test(linkedinUrl)) {
-        throw new Error("LinkedIn URL must start with http:// or https://.");
+    if (linkedinUrl) {
+        try { new URL(linkedinUrl); } catch { throw new Error("LinkedIn URL is not a valid URL."); }
     }
 
     if (id) {

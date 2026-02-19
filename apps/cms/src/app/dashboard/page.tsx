@@ -22,7 +22,7 @@ export default async function DashboardPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <StatCard label="Total Blogs" value={String(blogCount)} sub={`Drafts: ${draftBlogCount}`} />
-                <StatCard label="Portfolio Projects" value={String(projectCount)} sub={`Total tracked`} />
+                <StatCard label="Portfolio Projects" value={String(projectCount)} sub="Total tracked" />
                 <StatCard label="Media Assets" value={String(mediaCount)} sub={`Size: ${totalSizeMB} MB`} />
                 <StatCard label="System Health" value="100%" sub="All systems nominal" />
             </div>

@@ -35,12 +35,12 @@ export async function saveProject(formData: FormData) {
         throw new Error("Title, description, and category are required.");
     }
 
-    if (githubUrl && !/^https?:\/\/.+/.test(githubUrl)) {
-        throw new Error("GitHub URL must start with http:// or https://.");
+    if (githubUrl) {
+        try { new URL(githubUrl); } catch { throw new Error("GitHub URL is not a valid URL."); }
     }
 
-    if (demoUrl && !/^https?:\/\/.+/.test(demoUrl)) {
-        throw new Error("Demo URL must start with http:// or https://.");
+    if (demoUrl) {
+        try { new URL(demoUrl); } catch { throw new Error("Demo URL is not a valid URL."); }
     }
 
     const data = {
