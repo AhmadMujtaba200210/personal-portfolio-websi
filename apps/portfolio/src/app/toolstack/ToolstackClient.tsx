@@ -16,10 +16,10 @@ export function ToolstackClient({ categories }: ToolstackClientProps) {
                 transition={{ type: "spring", stiffness: 100, damping: 20 }}
                 className="space-y-4"
             >
-                <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
+                <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-gray-900 dark:text-white">
                     Technical <span className="text-accent-blue">Arsenal</span>.
                 </h1>
-                <p className="text-xl text-gray-500 max-w-2xl">
+                <p className="text-xl text-gray-500 dark:text-gray-400 max-w-2xl">
                     A comprehensive suite of languages, libraries, and platforms I leverage for quantitative research, algorithmic trading, and system engineering.
                 </p>
             </motion.div>

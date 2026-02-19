@@ -24,7 +24,7 @@ export function AboutClient({ hero, settings, spotlights }: AboutClientProps) {
                 transition={{ type: "spring", stiffness: 100, damping: 20 }}
                 className="space-y-8 text-center md:text-left"
             >
-                <div className="w-32 h-32 rounded-full bg-gray-200 mx-auto md:mx-0 overflow-hidden relative border-4 border-white shadow-xl">
+                <div className="w-32 h-32 rounded-full bg-gray-200 dark:bg-gray-700 mx-auto md:mx-0 overflow-hidden relative border-4 border-white dark:border-gray-800 shadow-xl">
                     <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-400" />
                 </div>
 

@@ -39,10 +39,10 @@ export default function ProductsListing() {
                 transition={{ type: "spring", stiffness: 100, damping: 20 }}
                 className="space-y-4"
             >
-                <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
+                <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-gray-900 dark:text-white">
                     Digital <span className="text-accent-blue">Goods</span>.
                 </h1>
-                <p className="text-xl text-gray-500 max-w-2xl">
+                <p className="text-xl text-gray-500 dark:text-gray-400 max-w-2xl">
                     High-quality resources to kickstart your next project.
                 </p>
             </motion.div>
@@ -55,7 +55,7 @@ export default function ProductsListing() {
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
                         transition={{ delay: i * 0.1 }}
-                        className="group relative bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100"
+                        className="group relative bg-white dark:bg-gray-900/60 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-800"
                     >
                         <div className={`h-64 w-full ${product.image} relative overflow-hidden group-hover:scale-105 transition-transform duration-500`}>
                             <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
@@ -65,12 +65,12 @@ export default function ProductsListing() {
                             <div className="flex justify-between items-start">
                                 <div>
                                     <span className="text-xs font-bold tracking-wider text-accent-blue uppercase">{product.tag}</span>
-                                    <h3 className="text-2xl font-bold mt-1 group-hover:text-accent-blue transition-colors">{product.title}</h3>
+                                    <h3 className="text-2xl font-bold mt-1 text-gray-900 dark:text-white group-hover:text-accent-blue transition-colors">{product.title}</h3>
                                 </div>
-                                <span className="text-xl font-bold text-gray-900 bg-gray-50 px-4 py-2 rounded-full">{product.price}</span>
+                                <span className="text-xl font-bold text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-800 px-4 py-2 rounded-full">{product.price}</span>
                             </div>
 
-                            <button className="w-full py-4 mt-4 rounded-xl bg-black text-white font-bold flex items-center justify-center gap-2 group-hover:bg-accent-blue transition-colors">
+                            <button className="w-full py-4 mt-4 rounded-xl bg-gray-900 dark:bg-white/10 text-white font-bold flex items-center justify-center gap-2 group-hover:bg-accent-blue transition-colors">
                                 Get it now <ShoppingBag size={18} />
                             </button>
                         </div>
