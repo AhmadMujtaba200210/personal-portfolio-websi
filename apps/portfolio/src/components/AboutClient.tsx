@@ -1,18 +1,20 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { User, MapPin, Calendar } from "lucide-react";
+import { MapPin, Calendar } from "lucide-react";
 
 interface AboutClientProps {
     hero: any;
     settings: Record<string, string>;
+    spotlights: any[];
 }
 
-export function AboutClient({ hero, settings }: AboutClientProps) {
+export function AboutClient({ hero, settings, spotlights }: AboutClientProps) {
     const name = hero?.name || "Ahmad Mujtaba";
     const bio = hero?.bio || "I bridge the gap between financial theory and computational implementation.";
     const location = settings["LOCATION"] || "Westborough, MA";
     const experienceYears = settings["EXPERIENCE_YEARS"] || "2+ Years";
+    const timeline = (spotlights || []).slice().sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 
     return (
         <div className="min-h-screen pt-32 pb-20 px-6 md:px-12 max-w-4xl mx-auto space-y-16">
@@ -56,23 +58,26 @@ export function AboutClient({ hero, settings }: AboutClientProps) {
                 </div>
             </motion.div>
 
-            {/* Static sections remain for now, but use CMS data where possible */}
             <motion.section
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 className="space-y-8"
             >
-                <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Experience</h2>
+                <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Experience & Milestones</h2>
                 <div className="space-y-8">
-                    <div className="relative pl-8 border-l border-gray-200 dark:border-gray-800 space-y-2">
-                        <div className="absolute -left-[5px] top-2+C8 w-2.5 h-2.5 rounded-full bg-accent-blue" />
-                        <h3 className="text-xl font-bold text-gray-900 dark:text-white">Junior Analyst</h3>
-                        <p className="text-gray-500">360 Huntington Fund | Sept 2025 – Dec 2025</p>
-                        <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                            Conducted fundamental and quantitative analysis on semiconductor equities. Built valuation models incorporating revenue growth and varied demand scenarios.
-                        </p>
-                    </div>
+                    {timeline.length > 0 ? (
+                        timeline.map((item) => (
+                            <div key={item.id} className="relative pl-8 border-l border-gray-200 dark:border-gray-800 space-y-2">
+                                <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-accent-blue" />
+                                <h3 className="text-xl font-bold text-gray-900 dark:text-white">{item.title}</h3>
+                                {item.date && <p className="text-gray-500">{item.date}</p>}
+                                <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{item.description}</p>
+                            </div>
+                        ))
+                    ) : (
+                        <p className="text-gray-500">Milestones will appear here once added from the CMS Spotlight module.</p>
+                    )}
                 </div>
             </motion.section>
         </div>

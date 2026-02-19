@@ -6,7 +6,8 @@
     "types": "./index.ts",
     "scripts": {
         "generate": "prisma generate",
-        "push": "prisma db push"
+        "push": "prisma db push",
+        "seed:profile": "npx tsx prisma/seed.profile.ts"
     },
     "prisma": {
         "seed": "npx tsx prisma/seed.ts"

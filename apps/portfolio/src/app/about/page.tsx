@@ -1,5 +1,5 @@
 import { AboutClient } from "@/components/AboutClient";
-import { getHeroData, getSiteSettings } from "@/lib/data";
+import { getHeroData, getSiteSettings, getSpotlightItems } from "@/lib/data";
 import { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -12,10 +12,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function AboutPage() {
-    const [hero, settings] = await Promise.all([
+    const [hero, settings, spotlights] = await Promise.all([
         getHeroData(),
         getSiteSettings(),
+        getSpotlightItems(),
     ]);
 
-    return <AboutClient hero={hero} settings={settings} />;
+    return <AboutClient hero={hero} settings={settings} spotlights={spotlights} />;
 }
