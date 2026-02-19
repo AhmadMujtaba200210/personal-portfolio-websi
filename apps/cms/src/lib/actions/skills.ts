@@ -17,7 +17,7 @@ export async function getSkillCategories() {
 
 export async function saveSkillCategory(formData: FormData) {
     const session = await auth();
-    if (!session) throw new Error("Unauthorized");
+    if (!session?.user) throw new Error("Unauthorized");
 
     const id = formData.get("id") as string;
     const title = formData.get("title") as string;
@@ -36,7 +36,7 @@ export async function saveSkillCategory(formData: FormData) {
 
 export async function deleteSkillCategory(id: string) {
     const session = await auth();
-    if (!session) throw new Error("Unauthorized");
+    if (!session?.user) throw new Error("Unauthorized");
 
     await prisma.skillCategory.delete({ where: { id } });
     revalidatePath("/dashboard/skills");
@@ -44,7 +44,7 @@ export async function deleteSkillCategory(id: string) {
 
 export async function saveSkill(formData: FormData) {
     const session = await auth();
-    if (!session) throw new Error("Unauthorized");
+    if (!session?.user) throw new Error("Unauthorized");
 
     const id = formData.get("id") as string;
     const name = formData.get("name") as string;
@@ -72,7 +72,7 @@ export async function saveSkill(formData: FormData) {
 
 export async function deleteSkill(id: string) {
     const session = await auth();
-    if (!session) throw new Error("Unauthorized");
+    if (!session?.user) throw new Error("Unauthorized");
 
     await prisma.skill.delete({ where: { id } });
     revalidatePath("/dashboard/skills");
@@ -80,7 +80,7 @@ export async function deleteSkill(id: string) {
 
 export async function reorderSkills(skillIds: string[]) {
     const session = await auth();
-    if (!session) throw new Error("Unauthorized");
+    if (!session?.user) throw new Error("Unauthorized");
 
     const updates = skillIds.map((id, index) =>
         prisma.skill.update({

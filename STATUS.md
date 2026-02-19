@@ -39,6 +39,9 @@ This document tracks the live implementation progress of the personal portfolio 
 - [x] Server-side input validation (required fields, URL format, email format, slug format)
 - [x] Media upload security: file type whitelist and 10MB size limit
 - [x] Path traversal prevention on media uploads
+- [x] Auth check hardening: all mutating actions now require `session?.user` (prevents edge-case session object without user)
+- [x] Path safety hardening: upload/delete path checks now enforce directory-boundary-safe `path.resolve` + `path.sep` validation
+- [x] Edge-case verification performed for malformed session state and traversal-like filenames (`../uploads_evil/...`) to prevent unsafe writes/deletes
 - [x] Auto-calculated blog reading time on save
 - [x] Dynamic dashboard stats (real DB counts for blogs, projects, media)
 - [x] Functional quick action buttons on dashboard (linked to actual pages)
