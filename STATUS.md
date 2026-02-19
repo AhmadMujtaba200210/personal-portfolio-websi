@@ -34,6 +34,15 @@ This document tracks the live implementation progress of the personal portfolio 
 - [ ] Local Media Driver for file uploads
 - [x] **Advanced Blog Engine (Verified - LaTeX + Code)**
 
+### ✅ Phase 3.5: Security Hardening & CMS Improvements
+- [x] Auth guards on all mutating server actions (hero, projects, blogs, media, settings, skills, spotlight)
+- [x] Server-side input validation (required fields, URL format, email format, slug format)
+- [x] Media upload security: file type whitelist and 10MB size limit
+- [x] Path traversal prevention on media uploads
+- [x] Auto-calculated blog reading time on save
+- [x] Dynamic dashboard stats (real DB counts for blogs, projects, media)
+- [x] Functional quick action buttons on dashboard (linked to actual pages)
+
 ### 📋 Phase 4: Portfolio Sync (`apps/portfolio`)
 - [ ] Connect Hero section to live database
 - [ ] Sync Projects with shared Prisma client
