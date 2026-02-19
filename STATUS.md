@@ -3,10 +3,12 @@
 This document tracks the live implementation progress of the personal portfolio and its integrated CMS.
 
 ## 🚩 Current Focus
-**Phase 3: Content Editors & Media**
-- Implementing Local Media storage & Driver
-- Integrating Tiptap Rich Text Editor for Blogs
-- Building Media Library browsing UI
+**Phase 3: Deep CMS Feature Expansion**
+- 🟠 Blog Section: Flagged for Major Revamp (Later)
+- 🏗️ Implementing UX-First Local Media Library
+- 🏗️ Building Skills & Tech Stack Manager
+- 🏗️ Building Spotlight & Achievements Module
+- 🏗️ Global Site Settings (SEO & Config)
 
 ---
 
@@ -30,7 +32,7 @@ This document tracks the live implementation progress of the personal portfolio 
 - [x] Project Manager Server Actions
 - [x] **Project Manager UI (Verified)**
 - [ ] Local Media Driver for file uploads
-- [ ] Rich Text Editor (Tiptap) for Blogs
+- [x] **Advanced Blog Engine (Verified - LaTeX + Code)**
 
 ### 📋 Phase 4: Portfolio Sync (`apps/portfolio`)
 - [ ] Connect Hero section to live database

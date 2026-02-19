@@ -11,7 +11,8 @@ import {
     Settings,
     LogOut,
     User,
-    Zap
+    Zap,
+    Star
 } from "lucide-react";
 
 function cn(...inputs: ClassValue[]) {
@@ -47,6 +48,8 @@ export default async function DashboardLayout({
                     <SidebarLink href="/dashboard" icon={<LayoutDashboard size={20} />} label="Overview" active />
                     <SidebarLink href="/dashboard/hero" icon={<User size={20} />} label="Hero Section" />
                     <SidebarLink href="/dashboard/projects" icon={<Briefcase size={20} />} label="Projects" />
+                    <SidebarLink href="/dashboard/skills" icon={<Zap size={20} />} label="Technical Arsenal" />
+                    <SidebarLink href="/dashboard/spotlight" icon={<Star size={20} />} label="Milestones" />
                     <SidebarLink href="/dashboard/blogs" icon={<PenTool size={20} />} label="Blog Posts" />
                     <SidebarLink href="/dashboard/media" icon={<ImageIcon size={20} />} label="Media Library" />
                     <SidebarLink href="/dashboard/settings" icon={<Settings size={20} />} label="Settings" />
